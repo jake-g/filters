@@ -1,7 +1,6 @@
 %% Question 1
 ls = 0.3*pi;    us = 0.7*pi;
 lp = 0.4*pi;    up = 0.6*pi;
-As = 40;        Rp = 0.5;
 
 Fs = (lp - ls)/2;
 BW = (up - lp)/Fs +1;
@@ -27,26 +26,24 @@ Rp = -min(db(lp/delta_w + 1:up/delta_w)) % Actual Passband Ripple
 As = -round(max(db(us/delta_w+1:501))) % Min Stopband Attenuation
 
 %% Plot 
-% subplot(1,1,1)
 subplot(4,1,1);plot(wl(1:M/2 +1)/pi,Hrs(1:M/2 +1),'o',wdl,Hdr); 
 axis([0,1,-0.1,1.1]); title('Bandpass Filter')
-xlabel('frequency in pi units'); ylabel('Hr(k)')
+xlabel('frequency (pi)'); ylabel('Hr(k)')
 set(gca,'XTickMode','manual','XTick',[0,0.2,0.35,0.65,0.8,1])
-% set(gca,'YTickMode','manual','YTick',[0,0.59,0.109,1]); grid
 
 subplot(4,1,2); stem(l,h); axis([-1,M,-0.4,0.4])
 title('Impulse Response'); xlabel('n'); ylabel('h(n)');
 subplot(4,1,3); plot(ww/pi,Hr,wl(1:M/2 +1)/pi,Hrs(1:M/2 +1),'o');
 axis([0,1,-0.1,1.1]); title('Amplitude Response')
-xlabel('frequency in pi units'); ylabel('Hr(w)')
+xlabel('frequency (pi)'); ylabel('Hr(w)')
 set(gca,'XTickMode','manual','XTick',[0,0.2,0.35,0.65,0.8,1])
 % set(gca,'YTickMode','manual','YTick',[0,0.59,0.109,1]); grid
 
-subplot(4,1,4);plot(w/pi,db); axis([0,1,-100,10]); grid
-title('Magnitude Response'); xlabel('frequency in pi units');
+subplot(4,1,4);plot(w/pi,db); hold on;
+plot([0 1], -1.*[As As], '--r'); axis([0,1,-100,10]); grid
+title('Magnitude Response'); xlabel('frequency (pi)');
 ylabel('Decibels');
+str1 = 'As = 39'; text(0.1,-30,str1);
 set(gca,'XTickMode','Manual','XTick',[0,0.2,0.35,0.65,0.8,1]);
 set(gca,'YTickMode','Manual','YTick',[-60;0]);
 set(gca,'YTickLabelMode','manual','YTickLabels',['60';' 0'])
-
-%

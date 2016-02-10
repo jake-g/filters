@@ -1,3 +1,4 @@
+%% Question 3
 %% Hamming LP Filter (Question 3a)
 wp = 0.48*pi; ws = 0.54*pi;
 tr_width = abs(ws - wp);
@@ -23,13 +24,12 @@ xlabel('n'); ylabel('h(n)')
 
 subplot(3,1,2); plot(w/pi,db);
 title('Magnitude Response  (Hamming Window)'); grid;
-xlabel('Frequency (rad/s)'); ylabel('dB')
+xlabel('frequency (pi)'); ylabel('dB')
 
 subplot(3,1,3); plot(angle(h(1:40))); 
-title('Phase Response'); xlabel('phase (rad)'); ylabel('phase h(n)');
+title('Phase Response'); xlabel('phase (pi)'); ylabel('phase h(n)');
 
 %% Sampling method (Question 3b)
-
 M = 33; alpha = (M-1)/2; 
 l = 0:M-1; wl = (2*pi/M)*l;
 T1 = 0.39039917;
@@ -48,7 +48,6 @@ figure
 subplot(3,1,1); stem(l,h); 
 title('Impulse Response'); xlabel('n'); ylabel('h(n)');
 subplot(3,1,2);plot(w/pi,db); grid;
-title('Magnitude Response (Sampling)'); xlabel('frequency in pi units');
-ylabel('Decibels'); 
+title('Magnitude Response (Sampling)'); xlabel('frequency (pi)')
 subplot(3,1,3); plot(angle(h)); 
-title('Phase Response'); xlabel('phase (rad)'); ylabel('phase h(n)');
+title('Phase Response'); xlabel('phase (pi)'); ylabel('phase h(n)');
