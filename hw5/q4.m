@@ -2,17 +2,18 @@
 
 
 Rp=1.1; As=51;
-wp1 = 0.5; ws1 = 0.56; ws2 = 0.82; wp2 = 0.88;
+wp1 = 0.5*pi; ws1 = 0.56*pi; ws2 = 0.82*pi; wp2 = 0.88*pi;
 [d1,d2] = db2delta(Rp,As);
-d_max = max(d1,d2); d_min = min(d1,d2);
 weights = [d2/d1 1 d2/d1];
-M = length(h); l = 0:M-1;
-f = [0 wp1 ws1 ws2 wp2 1];
-a = [1 1 0 0 1 1];
+delta_f = min(abs(ws2-wp2)/(2*pi), abs(wp1-ws1)/(2*pi));
+M = ceil((-20*log10(sqrt(d1*d2))-13)/(14.6*delta_f)+1);
+l = 0:M-1;
+f = [0 wp1 ws1 ws2 wp2 1*pi]./pi;
+m = [1 1 0 0 1 1];
 
 % Create Filter
-b = firpm(M-1,f,a, weights);
-[db,mag,pha,grd,w] = freqz_m(b,1);
+h = firpm(M-1,f,m, weights);
+[db,mag,pha,grd,w] = freqz_m(h,1);
 [Hr,ww,a,L] = hr_type1(h);
 
 % Check specs
