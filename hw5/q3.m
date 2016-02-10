@@ -1,6 +1,6 @@
 %% Hamming LP Filter (Question 3a)
 wp = 0.48*pi; ws = 0.54*pi;
-tr_width = ws - wp;
+tr_width = abs(ws - wp);
 M = ceil(6.6*pi/tr_width) + 1;
 n = 0:M-1;
 wc = (ws+wp)/2;
@@ -9,7 +9,7 @@ wc = (ws+wp)/2;
 hd = ideal_lp(wc,M);
 w_ham = hamming(M)';
 h = hd .* w_ham;
-[db,mag,pha,grd,w] = freqz_m(h,[1]);
+[db,mag,pha,grd,w] = freqz_m(h,1);
 delta_w = 2*pi/1000;
 
 % Check Properties
@@ -18,52 +18,37 @@ As = -round(max(db(ws/delta_w+1:501))) % Min Stopband attenuation
 
 %% Plots
 figure
-subplot(2,1,1); stem(n, h); title('Impulse Response')
+subplot(3,1,1); stem(n, h); title('Impulse Response')
 xlabel('n'); ylabel('h(n)')
 
-subplot(2,1,2); plot(w/pi,db);
+subplot(3,1,2); plot(w/pi,db);
 title('Magnitude Response  (Hamming Window)'); grid;
 xlabel('Frequency (rad/s)'); ylabel('dB')
 
+subplot(3,1,3); plot(angle(h(1:40))); 
+title('Phase Response'); xlabel('phase (rad)'); ylabel('phase h(n)');
 
 %% Sampling method (Question 3b)
-wp = 0.48*pi;   
-ws = 0.54*pi;    
 
-Fs = (ws - wp)/2;
-BW = ceil((wp)/Fs + 1);
-M = floor(2*pi/(Fs));
-alpha = (M-1)/2; 
+M = 33; alpha = (M-1)/2; 
 l = 0:M-1; wl = (2*pi/M)*l;
-T1 = 0.36983;
+T1 = 0.39039917;
 
-Hrs = [ones(1, BW), T1];
-Hrs = [Hrs, zeros(1, (M/2 - length(Hrs)))];
-Hrs = [Hrs Hrs];
-Hdr = [1,1,0,0]; 
-wdl = [0,wp,ws,1];
-
-% % check
+% Create filter
+Hrs = [ones(1,8),T1,zeros(1,16),T1,ones(1,7)];
+Hdr = [1,1,0,0]; wdl = [0,0.48,0.54,1];
 k1 = 0:floor((M-1)/2); k2 = floor((M-1)/2)+1:M-1;
 angH = [-alpha*(2*pi)/M*k1, alpha*(2*pi)/M*(M-k2)];
-H = Hrs.*exp(1i*angH); 
-h = real(ifft(H,M));
-% [d,~,~,~,~] = freqz_m(h,1);
-[Hr,ww,a,L] = hr_type2(h);
+H = Hrs.*exp(1i*angH); h = real(ifft(H,M));
+[db,mag,pha,grd,w] = freqz_m(h,1);
+[Hr,ww,a,L] = hr_type1(h);
 
-% Check Properties
-delta_w = 2*pi/1000;
-Rp = -min(db(0/delta_w + 1:wp/delta_w)) % Actual Passband Ripple
-As = -round(max(db(wp/delta_w+1:1:501))) % Min Stopband Attenuation
-
-%% Plot 
+%% Plots
 figure
-
-subplot(2,1,1); stem(l,h); axis([-1,M,-0.4,0.4])
+subplot(3,1,1); stem(l,h); 
 title('Impulse Response'); xlabel('n'); ylabel('h(n)');
-
-subplot(2,1,2);plot(w/pi,db); axis([0,1,-100,10]); grid
-title('Magnitude Response'); xlabel('frequency in pi units');
-ylabel('Decibels');
-
-
+subplot(3,1,2);plot(w/pi,db); grid;
+title('Magnitude Response (Sampling)'); xlabel('frequency in pi units');
+ylabel('Decibels'); 
+subplot(3,1,3); plot(angle(h)); 
+title('Phase Response'); xlabel('phase (rad)'); ylabel('phase h(n)');

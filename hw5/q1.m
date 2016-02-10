@@ -24,7 +24,7 @@ H = Hrs.*exp(1i*angH); h = real(ifft(H,M));
 % Check Properties
 delta_w = 2*pi/1000;
 Rp = -min(db(lp/delta_w + 1:up/delta_w)) % Actual Passband Ripple
-As = -round(max(db(us/delta_w+1:1:501))) % Min Stopband Attenuation
+As = -round(max(db(us/delta_w+1:501))) % Min Stopband Attenuation
 %% Plot 
 % subplot(1,1,1)
 subplot(2,2,1);plot(wl(1:M/2 +1)/pi,Hrs(1:M/2 +1),'o',wdl,Hdr); 
