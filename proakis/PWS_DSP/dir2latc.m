@@ -24,15 +24,15 @@ if b1 == 0
 
 end
 
-K(1) = b1; A = b/b1;
+K(1) = b1; A = b/b1
 
 for m=M:-1:2
 
 	K(m) = A(m);
 
-	J = fliplr(A);
+	J = fliplr(A)
     
-	A = (A-K(m)*J)/(1-K(m)*K(m));
+	A = (A-K(m)*J)/(1-K(m)*K(m))
 
 	A = A(1:m-1);
 
