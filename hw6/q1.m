@@ -9,7 +9,7 @@ poles = (1- nw) * zeros; % Compute poles
 b = poly(zeros); % average filter coefficients
 a = poly(poles); % autoregressive filter coefficients
 
-[H, w] = freqz(b,a,fs);
+[H, w] =  freqz(b,a,fs);
 mag = abs(H);
 db = 20*log10((mag+eps)/max(mag))+1;
 pha = angle(H);

@@ -1,4 +1,4 @@
-ws = 2000; wp = 500; As = 50; Rp = 0.25;
+Os = 2000; Op = 500; As = 50; Rp = 0.25;
 
 [N, Om_c] = buttord(wp, ws, Rp, As, 's')
 [b, a] = u_buttap(N, Om_c);
