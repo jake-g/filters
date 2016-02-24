@@ -41,16 +41,16 @@ filtered = filter(b,a,y_noise);
 
 figure
 subplot(311); plot(y)
-title('Original'); xlabel('hz'); ylabel('h(n)'); ylim([-1, 1]);
+title('Original'); xlabel('time'); ylabel('h(n)'); ylim([-1, 1]);
 subplot(312); plot(y_noise)
-title('Added Noise'); xlabel('hz'); ylabel('h(n)');
+title('Added Noise'); xlabel('time'); ylabel('h(n)');
 subplot(313); plot(filtered)
-title('Filtered'); xlabel('hz'); ylabel('h(n)'); ylim([-1, 1]);
+title('Filtered'); xlabel('time'); ylabel('h(n)'); ylim([-1, 1]);
 
 %% Play Sound
 % soundsc(y, Fs); pause() % original
-soundsc(y_noise, Fs); pause()   % dirty
-soundsc(filtered, Fs);  % clean
+% soundsc(y_noise, Fs); pause()   % dirty
+% soundsc(filtered, Fs);  % clean
 
 %% Spectral Plot
 nwin = 512; % samples
