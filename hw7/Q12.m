@@ -6,20 +6,20 @@
 
 % Design a Chebyshev-I lowpass filter
 fs = 8000; % Hz
-wp = 2*pi*3200/fs; % rad/sec
-ws = 2*pi*3800/fs; % rad/sec
+wp = 2*pi*3200/fs % rad/sec
+ws = 2*pi*3800/fs % rad/sec
 Rp = 0.5; % dB
 As = 45; % dB
 
 %% Part 1: Use the impulse invariance transformation with T = 1 sec
 T1 = 1;
-OmegaP1 = wp/T1;
-OmegaS1 = ws/T1;
+OmegaP1 = wp/T1
+OmegaS1 = ws/T1
 
 [cs1, ds1] = afd_chb1(OmegaP1, OmegaS1, Rp, As);
 
 [b1, a1] = imp_invr(cs1, ds1, T1);
-[C1, B1, A1] = dir2par(b1, a1)
+[C1, B1, A1] = dir2par(b1, a1);
 
 [db,mag,pha,grd,w] = freqz_m(b1,a1);
 
@@ -41,8 +41,8 @@ ylabel('Decibels');
 
 %% Part 2: Use the impulse invariance transformation with T = 1/8000 sec
 T2 = 1/8000;
-OmegaP2 = wp*T2;
-OmegaS2 = ws*T2;
+OmegaP2 = wp*T2
+OmegaS2 = ws*T2
 
 [cs2, ds2] = afd_chb1(OmegaP2, OmegaS2, Rp, As);
 
