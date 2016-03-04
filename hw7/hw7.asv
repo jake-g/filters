@@ -34,7 +34,6 @@ for i = 1:length(T)
     title('Log Magnitude Response'); xlabel('frequency (pi)');
     ylabel('Decibels');
 end
-
 %% Q2 : Bilinear Transform
 % Initialize
 Op = (2/T(1))*tan(wp/2);
@@ -71,18 +70,17 @@ Rp = 1; As = 50;
 % Bilinear transformation
 [nt, dt] = bilinear(numt, dent, 1);
 [db,mag,pha,grd,w] = freqz_m(nt,dt);
-
 % Plot
 figure;
 subplot(3,1,1); plot(w, mag); axis([0 pi 0 1]);
 title('Magnitude Response'); grid;
-xlabel('frequency (pi)'); ylabel('Magnitude');
+xlabel('frequency in pi units'); ylabel('Magnitude');
 subplot(3,1,2); plot(pha); axis([0 500 -pi pi]);
 title('Phase Response'); grid
-xlabel('w'); ylabel('Rad')
+xlabel('w'); ylabel('Radians')
 subplot(3,1,3); plot(db); grid; axis([0 500 -300 50]);
-title('Log Magnitude Response'); xlabel('frequency (pi)');
-ylabel('dB');
+title('Log Magnitude Response'); xlabel('frequency in pi units');
+ylabel('Decibels');
 
 
 
