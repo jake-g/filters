@@ -12,9 +12,9 @@ a = [1 -0.3 0.1];
 d = filter(b,a,x);
 
 % Plots
-% figure
-% freqz(b,a)
-% title('Filter Response')
+figure
+freqz(b,a)
+title('Actual Frequency Response')
 figure
 n_plts = 2+2*length(deltas);
 subplot(n_plts,1,1); plot(x)
@@ -45,11 +45,14 @@ for i = 1:length(Ns)
         mse = immse(d,d_aprx);
 
 %% Plots
-subplot(n_plts,1,2+i*2-1); plot(d_aprx)
-title(sprintf('Adaptive Filtered Data for N = %d, delta = %0.2d', N, del)); grid;
-xlabel('n'); ylabel('Amplitude');
-
-subplot(n_plts,1,2+i*2); plot(e.^2)
-title(sprintf('Adaptive Filter Squared Error for N = %d, mse = %0.2d', N, mse)); grid;
-xlabel('n'); ylabel('e^2');
+figure
+freqz(b,a)
+title(sprintf('Frequency Response for N = %d, delta = %0.2d', N, del))
+% subplot(n_plts,1,2+i*2-1); plot(d_aprx)
+% title(sprintf('Adaptive Filtered Data for N = %d, delta = %0.2d', N, del)); grid;
+% xlabel('n'); ylabel('Amplitude');
+% 
+% subplot(n_plts,1,2+i*2); plot(e.^2)
+% title(sprintf('Adaptive Filter Squared Error for N = %d, mse = %0.2d', N, mse)); grid;
+% xlabel('n'); ylabel('e^2');
 end
